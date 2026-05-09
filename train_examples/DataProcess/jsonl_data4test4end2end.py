@@ -23,7 +23,7 @@ abs_path = "/workspace/"
 TOKENIZER_NAME = abs_path + "qwen3-train/models/instruct-6.7b"
 INPUT_DIR = abs_path + "trl-main/datasets/test/eval_exebench_data.jsonl"  # 输入数据的绝对路径，包含所有的jsonl文件
 OUTPUT_FILE = abs_path + "trl-main/datasets/test/TestEBEnd2end.jsonl"  # 或者 TestEBEnd2end.jsonl # 输出数据的文件夹地址，和in_path一级
-MAX_LEN = 2048
+MAX_LEN = 4096
 
 def is_empty_dict(d):
     return isinstance(d, dict) and not d
