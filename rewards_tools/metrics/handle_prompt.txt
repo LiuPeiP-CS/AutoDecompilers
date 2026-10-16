@@ -1,0 +1,247 @@
+You are a C code engineer tasked with improving the decompiled function code without altering its structure. Modifications should be minimal, and there is no requirement to ensure that the decompiled code compiles.
+
+Instructions:
+
+1. Understand the Function:
+
+- Review the function’s dependencies in the "dependency" subsection and understand the decompiled function code provided in the "decompiled code" subsection.
+
+2. Identify Key Elements:
+
+- Identify structure names, global variable names, and function names used in the decompiled code.
+
+3. Align Structure Names:
+
+- Align the structure names in the decompiled code with those in the dependency section, ensuring the variable names within these structures are the same. Do not alter the structure of each line in the decompiled function code.
+
+4. Align Global Variables:
+
+- Ensure that global variable names used in the decompiled code are aligned with those specified in the dependency section. Do not alter the structure of each line in the decompiled function code.
+
+5. Align Function Calls:
+
+- Ensure that function calls in the decompiled code match those in the dependency, with the correct number of input parameters for each function. Do not alter the structure of each line in the decompiled function code.
+
+6. Modify the Decompiled Code (if needed):
+
+- If modifications are required, provide the final optimized code in the "optimized code" subsection, with no comments included. In the "replaced name" subsection, include a JSON format listing the type names, variable names, or function names before and after the modification. The example:
+```json
+{"name_before_modified_1": "name_after_modified_1", "name_before_modified_2": "name_after_modified_2", ...}
+```
+- If no modifications are needed, write "none" in the "optimized code" subsection and leave the "replaced name" subsection empty. 
+
+
+Let's take a deep breath and think step by step. Please give us the optimized code and modification Json
+
+# Example 1
+
+## Input
+
+### dependency
+
+```C
+typedef unsigned long uint64_t;
+#define NULL ((void*)0)
+typedef unsigned long size_t;  // Customize by platform.
+typedef long intptr_t; typedef unsigned long uintptr_t;
+typedef long scalar_t__;  // Either arithmetic or pointer type.
+/* By default, we understand bool (as a convenience). */
+typedef int bool;
+#define false 0
+#define true 1
+
+/* Forward declarations */
+typedef  struct TYPE_2__   TYPE_1__ ;
+
+/* Type definitions */
+struct TYPE_2__ {float sv_gravity; float sv_maxvelocity; } ;
+
+/* Variables and functions */
+ TYPE_1__ aassettings ; 
+
+
+
+float sqrt__bench (int b) {
+	float returnv;
+	float temp_variable = 43.4347953376;
+	returnv = temp_variable;
+	return returnv;
+}
+```
+
+### decompiled code
+
+```C
+float AAS_MaxJumpDistance( float phys_jumpvel ) {
+   float phys_gravity, phys_maxvelocity, phys_minvelocity, phys_friction;
+
+   phys_gravity = aassettings.phys_gravity;
+   phys_maxvelocity = aassettings.phys_maxvelocity;
+   phys_friction = AAS( -1.0 / ( 0.5 * phys_gravity ) );
+
+   return phys_friction + ( phys_jumpvel / phys_gravity ) * phys_friction;
+}
+```
+
+## Output
+
+### optimized code
+
+```C
+float AAS_MaxJumpDistance( float phys_jumpvel ) {
+   float phys_gravity, phys_maxvelocity, phys_minvelocity, phys_friction;
+
+   phys_gravity = aassettings.sv_gravity;
+   phys_maxvelocity = aassettings.sv_maxvelocity;
+   phys_friction = sqrt__bench( -1.0 / ( 0.5 * phys_gravity ) );
+
+   return phys_friction + ( phys_jumpvel / phys_gravity ) * phys_friction;
+}
+```
+
+### replaced name
+
+```json
+{"aassettings.phys_gravity": "aassettings.sv_gravity", "aassettings.phys_maxvelocity":"aassettings.sv_maxvelocity", "AAS":"sqrt__bench"}
+```
+
+# Example 2
+
+## Input
+
+### dependency
+
+```C
+typedef unsigned long uint64_t;
+#define NULL ((void*)0)
+typedef unsigned long size_t;  // Customize by platform.
+typedef long intptr_t; typedef unsigned long uintptr_t;
+typedef long scalar_t__;  // Either arithmetic or pointer type.
+/* By default, we understand bool (as a convenience). */
+typedef int bool;
+#define false 0
+#define true 1
+
+/* Forward declarations */
+
+/* Type definitions */
+struct aa_iter {scalar_t__ l0; int /*<<< orphan*/  v0; int /*<<< orphan*/  v1; int /*<<< orphan*/  end; int /*<<< orphan*/  next; } ;
+struct aa {scalar_t__ pos; } ;
+
+/* Variables and functions */
+ int /*<<< orphan*/  _aa_end_f ; 
+ int /*<<< orphan*/  _aa_next_f ; 
+ int /*<<< orphan*/  aa_as_array (struct aa*) ; 
+
+
+int aa_as_array (struct aa * b) {
+	int returnv;
+	int temp_variable = 45;
+	returnv = temp_variable;
+	return returnv;
+}
+```
+
+### decompiled code
+
+```C
+void aa_forward (aa_context *a, aa_tree *tr)
+{
+  a->next_f = next_f;
+  a->end_f = end_f;
+  a->stack = a->stack_f = aa_as (tr);
+  a->stack_depth++;
+}
+```
+
+## Output
+
+### optimized code
+
+```C
+void aa_forward (struct aa_iter *a, struct aa *tr)
+{
+  a->next = _aa_next_f;
+  a->end = _aa_end_f;
+  a->v1 = a->v0 = aa_as_array (tr);
+  a->l0++;
+}
+```
+
+### replaced name
+
+```json
+{"aa_context": "struct aa_iter", "aa_tree":"struct aa", "a->next_f":"a->next", "next_f":"_aa_next_f", "a->end_f":"a->end", "end_f":"_aa_end_f", "a->stack":"a->v1", "a->stack_f":"a->v1", "aa_as":"aa_as_array", "a->stack_depth":"a->l0"}
+```
+
+# Example 3
+                               
+## Input
+
+### dependency
+
+```C
+#define NULL ((void*)0)
+typedef unsigned long size_t;  // Customize by platform.
+typedef long intptr_t; typedef unsigned long uintptr_t;
+typedef long scalar_t__;  // Either arithmetic or pointer type.
+/* By default, we understand bool (as a convenience). */
+typedef int bool;
+#define false 0
+#define true 1
+
+/* Forward declarations */
+
+/* Type definitions */
+struct abuf {int used; scalar_t__ start; scalar_t__ len; } ;
+
+/* Variables and functions */
+```
+
+### decompiled code
+
+```C
+void abuf_rdiscard(buf *ab, int n)
+{
+    ab->size -= n;
+    ab->len += n;
+    if (ab->len >= ab->asize)
+ ab->len -= ab->asize;
+}
+```
+
+## Output
+
+### optimized code
+
+```C
+void abuf_rdiscard(struct abuf *ab, int n)
+{
+    ab->used -= n;
+    ab->start += n;
+    if (ab->start >= ab->len)
+ ab->start -= ab->len;
+}
+```
+
+### replaced name
+
+```json
+{"buf": "struct abuf", "ab->size": "ab->used", "ab->len":"ab->start", "ab->asize":"ab->len"}
+```
+
+# Your turn
+
+## Input
+
+### dependency
+
+```C
+$dependency
+```
+
+### decompiled code
+
+```C
+$decompiled
+```
